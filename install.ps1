@@ -1,15 +1,9 @@
-﻿# NeuroCover Focus — Pilot Installer
-# Usage: iex (iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1').Content
-
-[CmdletBinding()]
-param(
-    [string]$Version = "0.1.0",
-    [switch]$Quiet = $false,
-    [switch]$NoLaunch = $false
-)
+﻿# NeuroCover Focus -- Pilot Installer
+# Usage: iex ((iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1' -UseBasicParsing).Content)
 
 $ErrorActionPreference = "Stop"
 
+$Version       = "0.1.0"
 $ProductName   = "NeuroCover Focus"
 $RepoOrg       = "dishantdobariya91-debug"
 $RepoName      = "neurocover-releases"
@@ -35,20 +29,17 @@ Write-Host "Version $Version" -ForegroundColor DarkGray
 Write-Host ""
 
 Write-Step "Checking system"
-if ($PSVersionTable.PSVersion.Major -lt 5) { Write-Fail "PowerShell 5+ required."; exit 1 }
+if ($PSVersionTable.PSVersion.Major -lt 5) { Write-Fail "PowerShell 5+ required."; return }
 Write-OK "PowerShell $($PSVersionTable.PSVersion)"
 
 $os = (Get-CimInstance Win32_OperatingSystem).Caption
-if ($os -notmatch "Windows 1[01]") { Write-Fail "Windows 10/11 required."; exit 1 }
+if ($os -notmatch "Windows 1[01]") { Write-Fail "Windows 10/11 required."; return }
 Write-OK "OS: $os"
 
-if (-not [System.Environment]::Is64BitOperatingSystem) { Write-Fail "64-bit Windows required."; exit 1 }
+if (-not [System.Environment]::Is64BitOperatingSystem) { Write-Fail "64-bit Windows required."; return }
 Write-OK "Architecture: 64-bit"
 
-if (-not $ExpectedHashes.ContainsKey($Version)) {
-    Write-Fail "No SHA256 registered for version $Version."
-    exit 1
-}
+if (-not $ExpectedHashes.ContainsKey($Version)) { Write-Fail "No SHA256 registered for v$Version."; return }
 $ExpectedHash = $ExpectedHashes[$Version]
 Write-OK "Hash registered for v$Version"
 
@@ -64,7 +55,7 @@ try {
 } catch {
     Write-Fail "Download failed: $($_.Exception.Message)"
     Write-Host "  URL: $URL" -ForegroundColor DarkGray
-    exit 1
+    return
 }
 $fileSize = (Get-Item $TempPath).Length / 1MB
 Write-OK ("Downloaded {0:N1} MB" -f $fileSize)
@@ -76,32 +67,28 @@ if ($actualHash -ne $ExpectedHash) {
     Write-Host "  Expected: $ExpectedHash" -ForegroundColor DarkGray
     Write-Host "  Actual:   $actualHash" -ForegroundColor DarkGray
     Remove-Item $TempPath -Force -ErrorAction SilentlyContinue
-    exit 1
+    return
 }
 Write-OK "SHA256 verified"
 
 Write-Step "Installing $ProductName (admin elevation required)"
-$msiArgs = @("/i", "`"$TempPath`"")
-if ($Quiet) { $msiArgs += "/qn" } else { $msiArgs += "/qb" }
-
+$msiArgs = @("/i", "`"$TempPath`"", "/qb")
 try {
     $process = Start-Process "msiexec.exe" -ArgumentList $msiArgs -Wait -PassThru -Verb RunAs
-    if ($process.ExitCode -ne 0) { Write-Fail "Installer exited with code $($process.ExitCode)"; exit $process.ExitCode }
+    if ($process.ExitCode -ne 0) { Write-Fail "Installer exited with code $($process.ExitCode)"; return }
 } catch {
     Write-Fail "Install failed: $($_.Exception.Message)"
-    exit 1
+    return
 }
 Write-OK "Installed"
 
 Remove-Item $TempPath -Force -ErrorAction SilentlyContinue
 
-if (-not $NoLaunch) {
-    Write-Step "Launching"
-    $exePath = "C:\Program Files\NeuroCover Focus\neurocover-focus.exe"
-    if (Test-Path $exePath) {
-        Start-Process $exePath
-        Write-OK "Launched"
-    }
+Write-Step "Launching"
+$exePath = "C:\Program Files\NeuroCover Focus\neurocover-focus.exe"
+if (Test-Path $exePath) {
+    Start-Process $exePath
+    Write-OK "Launched"
 }
 
 Write-Host ""

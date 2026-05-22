@@ -8,7 +8,7 @@ This repository contains only the installer and PowerShell install script. The a
 
 Paste this single command into PowerShell:
 
-    iex (iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1').Content
+    iex ((iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1' -UseBasicParsing).Content)
 
 The script will download the MSI, verify its SHA256 hash, run the installer (admin prompt), and launch the app.
 
