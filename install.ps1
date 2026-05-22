@@ -1,4 +1,4 @@
-﻿# NeuroCover Focus -- Pilot Installer
+# NeuroCover Focus -- Pilot Installer
 # Usage: iex ((iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1' -UseBasicParsing).Content)
 
 $ErrorActionPreference = "Stop"
