@@ -1,4 +1,4 @@
-﻿# NeuroCover Focus -- Releases
+# NeuroCover Focus -- Releases
 
 Pilot release distribution for NeuroCover Focus, an adaptive cognitive stability system built by NeuroPause Lab in Ahmedabad, India.
 
@@ -8,7 +8,7 @@ This repository contains only the installer and PowerShell install script. The a
 
 Paste this single command into PowerShell:
 
-    iex ((iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1' -UseBasicParsing).Content)
+    $s = (iwr 'https://raw.githubusercontent.com/dishantdobariya91-debug/neurocover-releases/main/install.ps1' -UseBasicParsing).Content; if ($s[0] -eq [char]0xFEFF) { $s = $s.Substring(1) }; iex $s
 
 The script will download the MSI, verify its SHA256 hash, run the installer (admin prompt), and launch the app.
 
