@@ -1,2 +1,5 @@
 ﻿# MSI is uploaded as a GitHub Release asset, not committed
 *.msi
+
+*.exe
+*.msi
