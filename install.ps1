@@ -3,14 +3,14 @@
 
 $ErrorActionPreference = "Stop"
 
-$Version       = "0.1.0"
+$Version       = "0.1.1"
 $ProductName   = "NeuroCover Focus"
 $RepoOrg       = "dishantdobariya91-debug"
 $RepoName      = "neurocover-releases"
 $InstallerFile = "NeuroCover-Focus-${Version}_x64_en-US.msi"
 $BaseURL       = "https://github.com/$RepoOrg/$RepoName/releases/download/v$Version"
 $URL           = "$BaseURL/$InstallerFile"
-$ExpectedHash  = "55523B43AA977E1D96EA247013B5B84CBC78E6FADD0DCDAF9DF1B61D623AA289"
+$ExpectedHash  = "B117479DE83B27722EB707C4E0E8D1BF8FD2FF25DF227859B94B0FF6FBF3F4F3"
 
 function Write-Step($Message) {
     Write-Host ""
