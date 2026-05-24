@@ -1,10 +1,10 @@
 # NeuroCover Focus - Pilot Installer (NSIS, per-user install)
 
 $ErrorActionPreference = "Stop"
-$VERSION = "0.1.8"
-$EXE_NAME = "NeuroCover-Focus-0.1.8_x64-setup.exe"
-$EXPECTED_SHA256 = "F4A08C025FC369877E4771C3D27E6027A762526ECA8BA9F8BBB976036B17A1A9"
-$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.8"
+$VERSION = "0.1.9"
+$EXE_NAME = "NeuroCover-Focus-0.1.9_x64-setup.exe"
+$EXPECTED_SHA256 = "1EA2BCEA95CF1D0E39DEDAD50BFE1B3BC8F5CC98AB2FD9EFB4E8D73C91792BE1"
+$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.9"
 
 Write-Host ""
 Write-Host "NeuroCover Focus -- Pilot Installer" -ForegroundColor Cyan
