@@ -2,10 +2,10 @@
 # No admin elevation needed. Bypasses Windows Installer policy restrictions.
 
 $ErrorActionPreference = "Stop"
-$VERSION = "0.1.6"
-$EXE_NAME = "NeuroCover-Focus-0.1.6_x64-setup.exe"
-$EXPECTED_SHA256 = "243762F66720ECEC0AEA9CC0C3332B0865E47376BC46A6DB7BCEA7475CCD544D"
-$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.6"
+$VERSION = "0.1.7"
+$EXE_NAME = "NeuroCover-Focus-0.1.7_x64-setup.exe"
+$EXPECTED_SHA256 = "E9D18A934FDC30D36BC23CF7C2264F28BC1C393C8833D40E1E0E6707CA9D701C"
+$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.7"
 
 Write-Host ""
 Write-Host "NeuroCover Focus -- Pilot Installer" -ForegroundColor Cyan
