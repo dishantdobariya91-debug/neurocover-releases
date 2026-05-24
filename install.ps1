@@ -1,11 +1,10 @@
 # NeuroCover Focus - Pilot Installer (NSIS, per-user install)
-# No admin elevation needed. Bypasses Windows Installer policy restrictions.
 
 $ErrorActionPreference = "Stop"
-$VERSION = "0.1.7"
-$EXE_NAME = "NeuroCover-Focus-0.1.7_x64-setup.exe"
-$EXPECTED_SHA256 = "E9D18A934FDC30D36BC23CF7C2264F28BC1C393C8833D40E1E0E6707CA9D701C"
-$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.7"
+$VERSION = "0.1.8"
+$EXE_NAME = "NeuroCover-Focus-0.1.8_x64-setup.exe"
+$EXPECTED_SHA256 = "F4A08C025FC369877E4771C3D27E6027A762526ECA8BA9F8BBB976036B17A1A9"
+$BASE_URL = "https://github.com/dishantdobariya91-debug/neurocover-releases/releases/download/v0.1.8"
 
 Write-Host ""
 Write-Host "NeuroCover Focus -- Pilot Installer" -ForegroundColor Cyan
@@ -27,10 +26,7 @@ Get-Process | Where-Object { $_.ProcessName -like "*neurocover*" } | Stop-Proces
 Write-Host "==> Removing previous installation (if any)" -ForegroundColor Yellow
 try {
     Get-Package -Name "NeuroCover*" -ErrorAction SilentlyContinue | ForEach-Object {
-        try {
-            Uninstall-Package -Name $_.Name -Force -ErrorAction SilentlyContinue | Out-Null
-            Write-Host "  + Removed: $($_.Name)"
-        } catch {}
+        try { Uninstall-Package -Name $_.Name -Force -ErrorAction SilentlyContinue | Out-Null; Write-Host "  + Removed: $($_.Name)" } catch {}
     }
 } catch {}
 $nsisUninstaller = "$env:LOCALAPPDATA\NeuroCover Focus\uninstall.exe"
